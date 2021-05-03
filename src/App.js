@@ -40,8 +40,6 @@ function App() {
       .replace(/"/g, '\\"')
 
 
-    console.log(query);
-
     mathAPIfetch(`
       mutation {
         createPreset(presetInput: {
@@ -62,8 +60,16 @@ function App() {
     </li>
   });
 
+  const clearProblems = () => {
+    setProblems([]);
+  }
+
   return (
     <div>
+
+      <button
+        onClick={clearProblems}
+      >Clear Problems</button>
 
       <ul>
         {presetsList}
