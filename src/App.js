@@ -36,7 +36,11 @@ function App() {
     const { name, query: rawQuery } = e.target;
 
     const query = rawQuery.value
+      .replace(/\n/g, '')
       .replace(/"/g, '\\"')
+
+
+    console.log(query);
 
     mathAPIfetch(`
       mutation {
