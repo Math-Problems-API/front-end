@@ -10,4 +10,3 @@ Here's what the front may end up looking like:
 - Allow users to build non-randomly generated problem sets
 - Add GUI for building problem sets so users never have to write GraphQL queries
 - Custom input mode for building very specific queries
-
