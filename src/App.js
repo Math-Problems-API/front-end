@@ -13,7 +13,7 @@ function App() {
   }, []);
 
   const getProblems = ({ target }) => {
-    fetch(`http://localhost:7890/presets/${target.id}`)
+    fetch(`https://math-problems-api.herokuapp.com/presets/${target.id}`)
       .then(res => res.json())
       .then(json => json.data.binary)
       .then(setProblems)

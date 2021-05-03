@@ -1,4 +1,4 @@
-const mathAPIfetch = query => fetch('http://localhost:7890/gql', {
+const mathAPIfetch = query => fetch('https://math-problems-api.herokuapp.com/gql', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
