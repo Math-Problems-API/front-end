@@ -14,15 +14,15 @@ function App() {
   useEffect(() => {
     mathAPIfetch('{ presets { name } }')
       .then(res => res.json())
-      .then(({ data }) => setPresets(data.presets))
+      .then(({ data }) => setPresets(data.presets));
   }, [presets]);
 
   const getProblems = ({ target }) => {
     fetch(`https://math-problems-api.herokuapp.com/presets/${target.id}`)
       .then(res => res.json())
       .then(json => json.data.binary)
-      .then(setProblems)
-  }
+      .then(setProblems);
+  };
 
   const presetsList = presets.map(({ name, query }, i) => {
     return <PresetItem 
@@ -31,15 +31,21 @@ function App() {
     />;
   });
 
+  const problemsList = problems.map(({ problem, solution }, i) => {
+    return <ProblemItem key={i} {...{ problem, solution }}/>;
+  });
+
+  const clearProblems = () => setProblems([]);
+
   const submitPreset = e => {
     e.preventDefault();
 
     const { name, query: rawQuery } = e.target;
 
+    // Remove new line characters and escape quotes
     const query = rawQuery.value
       .replace(/\n/g, '')
-      .replace(/"/g, '\\"')
-
+      .replace(/"/g, '\\"');
 
     mathAPIfetch(`
       mutation {
@@ -53,15 +59,7 @@ function App() {
       }
     `)
       .then(() => setPresets(() => [...presets]))
-  }
-
-  const problemsList = problems.map(({ problem, solution }, i) => {
-    return <ProblemItem key={i} {...{ problem, solution }}/>
-  });
-
-  const clearProblems = () => {
-    setProblems([]);
-  }
+  };
 
   return (
     <div className="App">
