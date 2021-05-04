@@ -1,0 +1,23 @@
+.problems-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.problems-list {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  height: 16rem;
+
+  border-top: 1px black solid;
+
+  list-style-type: none;
+}
+
+.clear-button {
+  width: 10rem;
+}

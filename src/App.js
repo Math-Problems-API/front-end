@@ -3,6 +3,7 @@ import './App.css';
 import PresetForm from './presentation/PresetForm/PresetForm';
 import PresetItem from './presentation/PresetItem/PresetItem';
 import PresetList from './presentation/PresetList/PresetList';
+import ProblemItem from './presentation/ProblemItem/ProblemItem';
 import ProblemsDisplay from './presentation/ProblemsDisplay/ProblemsDisplay';
 import mathAPIfetch from './utils/mathAPIFetch';
 
@@ -54,11 +55,8 @@ function App() {
       .then(() => setPresets(() => [...presets]))
   }
 
-  const problemsList = problems.map((prob, i) => {
-    return <li key={i}>
-      <p>Problem: {prob.problem}</p>
-      <p>Solution: {prob.solution}</p>
-    </li>
+  const problemsList = problems.map(({ problem, solution }, i) => {
+    return <ProblemItem key={i} {...{ problem, solution }}/>
   });
 
   const clearProblems = () => {
