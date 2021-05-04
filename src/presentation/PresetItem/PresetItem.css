@@ -1,0 +1,19 @@
+.preset-item {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  margin: 0.1rem;
+  padding: 0.1rem;
+
+  width: 8rem;
+  height: 5rem;
+
+  border: 1px black solid;
+}
+
+.preset-item p {
+  margin: 0;
+}

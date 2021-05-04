@@ -1,20 +1,23 @@
-import React from 'react'
+import React from 'react';
+import './PresetForm.css';
 
-export default function PresestForm({ submitPreset }) {
+export default function PresetForm({ submitPreset }) {
   return (
-    <form onSubmit={submitPreset}>
-      <label htmlFor="name">Preset Name: </label>
-      <input id="name" type="text"/>
-      <label htmlFor="query">Preset Query: </label>
+    <form onSubmit={submitPreset} className="preset-form">
+      <label htmlFor="name" className="name-label">
+        <p className="input-title">Preset Name:</p>
+      </label>
+      <input id="name" className="name-input" type="text" required/>
+
+      <label htmlFor="query" className="query-label">
+        <p className="input-title">Preset Query:</p>
+      </label>
       <textarea 
         id="query" 
         type="text"
-        style={{ 
-          height: '10rem', 
-          width: '20rem'
-        }}
+        className="query-input"
       />
-      <button>Submit</button>
+      <button className="submit-button">Submit</button>
     </form>
   )
 }

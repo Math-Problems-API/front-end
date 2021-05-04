@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import './PresetList.css';
 
 export default function PresetList({ presetsList }) {
   return (
-    <ul>
+    <ul className="presets-list">
       {presetsList}
     </ul>
   )

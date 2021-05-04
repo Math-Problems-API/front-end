@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import PresetForm from './presentation/PresetForm/PresetForm';
+import PresetItem from './presentation/PresetItem/PresetItem';
 import PresetList from './presentation/PresetList/PresetList';
 import ProblemsDisplay from './presentation/ProblemsDisplay/ProblemsDisplay';
 import mathAPIfetch from './utils/mathAPIFetch';
@@ -23,15 +24,10 @@ function App() {
   }
 
   const presetsList = presets.map(({ name, query }, i) => {
-    return <li key={i}>
-      <p>{name}</p>
-      <p>{query}</p>
-      <button
-        id={name}
-        onClick={getProblems}>
-          Get Problems
-      </button>
-    </li>
+    return <PresetItem 
+      key={i} 
+      {...{ name, query, getProblems }}
+    />;
   });
 
   const submitPreset = e => {
@@ -70,10 +66,12 @@ function App() {
   }
 
   return (
-    <div>
-      <PresetList {...{ presetsList }}/>
+    <div className="App">
+      <div className="presets-container">
+        <PresetForm {...{ submitPreset }}/>
+        <PresetList {...{ presetsList }}/>
+      </div>
       <ProblemsDisplay {...{ problemsList, clearProblems }}/>
-      <PresetForm {...{ submitPreset }}/>
     </div>
   );
 }

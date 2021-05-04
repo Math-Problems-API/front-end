@@ -1,0 +1,38 @@
+.preset-form {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+
+  width: 30%;
+}
+
+.name-input {
+  height: 2rem;
+  width: 100%;
+}
+
+.query-input {
+  height: 16rem;
+  width: 100%;
+}
+
+.submit-button {
+  width: 6rem;
+}
+
+.name-label {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.query-label {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
