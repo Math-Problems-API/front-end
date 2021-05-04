@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import PresetForm from './presentation/PresetForm/PresetForm';
+import PresetList from './presentation/PresetList/PresetList';
+import ProblemsDisplay from './presentation/ProblemsDisplay/ProblemsDisplay';
 import mathAPIfetch from './utils/mathAPIFetch';
 
 function App() {
-  const [currentPresets, setCurrentPresets] = useState([]);
+  const [presets, setPresets] = useState([]);
   const [problems, setProblems] = useState([]);
   
   useEffect(() => {
     mathAPIfetch('{ presets { name } }')
       .then(res => res.json())
-      .then(({ data }) => setCurrentPresets(data.presets))
-  }, []);
+      .then(({ data }) => setPresets(data.presets))
+  }, [presets]);
 
   const getProblems = ({ target }) => {
     fetch(`https://math-problems-api.herokuapp.com/presets/${target.id}`)
@@ -19,14 +22,15 @@ function App() {
       .then(setProblems)
   }
 
-  const presetsList = currentPresets.map(({ name, query }, i) => {
+  const presetsList = presets.map(({ name, query }, i) => {
     return <li key={i}>
       <p>{name}</p>
       <p>{query}</p>
       <button
         id={name}
-        onClick={getProblems}
-      >Get Problems</button>
+        onClick={getProblems}>
+          Get Problems
+      </button>
     </li>
   });
 
@@ -50,7 +54,8 @@ function App() {
           query
         }
       }
-    `);
+    `)
+      .then(() => setPresets(() => [...presets]))
   }
 
   const problemsList = problems.map((prob, i) => {
@@ -66,34 +71,9 @@ function App() {
 
   return (
     <div>
-
-      <button
-        onClick={clearProblems}
-      >Clear Problems</button>
-
-      <ul>
-        {presetsList}
-      </ul>
-
-      <ul>
-        {problemsList}
-      </ul>
-
-      <form onSubmit={submitPreset}>
-        <label htmlFor="name">Preset Name: </label>
-        <input id="name" type="text"/>
-        <label htmlFor="query">Preset Query: </label>
-        <textarea 
-          id="query" 
-          type="text"
-          style={{ 
-            height: '10rem', 
-            width: '20rem'
-          }}
-        />
-        <button>Submit</button>
-      </form>
-
+      <PresetList {...{ presetsList }}/>
+      <ProblemsDisplay {...{ problemsList, clearProblems }}/>
+      <PresetForm {...{ submitPreset }}/>
     </div>
   );
 }
