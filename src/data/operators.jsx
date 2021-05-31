@@ -1,4 +1,5 @@
-export const addition = <div
+const addition = <div
+  id="addition"
   style={{
 
   }}
@@ -7,3 +8,9 @@ export const addition = <div
   <div>+</div>
   <div>1</div>
 </div>
+
+const ops = [
+  addition
+];
+
+export default ops;

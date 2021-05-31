@@ -1,12 +1,35 @@
 import { useState, useEffect } from 'react';
 
-import { addition } from './data/operators'; 
+import ops from './data/operators'; 
 
 function App() {
 
+  const [operator, setOperator] = useState(<div></div>);
+
+  const selectOperator = ({ target }) => {
+    return setOperator(target.value);
+  }
+
   return (
     <div className="App">
-      {addition}
+      <div>
+        <select
+          value={operator}
+          onChange={selectOperator}
+        >
+          <option
+            id=""
+            value={<div></div>}
+          ></option>
+          <option 
+            id="addition"
+            value="addition"
+          >addition</option>
+        </select>
+      </div>
+      {
+        ops.find(op => op.props.id === operator) || ''
+      }
     </div>
   );
 }
