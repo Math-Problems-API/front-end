@@ -1,3 +1,5 @@
+// This array comes from backend
+
 const addition = <div
   id="addition"
   style={{

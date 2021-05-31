@@ -19,7 +19,6 @@ function App() {
         >
           <option
             id=""
-            value={<div></div>}
           ></option>
           <option 
             id="addition"
