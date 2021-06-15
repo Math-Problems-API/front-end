@@ -7,6 +7,7 @@ const mathProblemsURL = 'https://math-problems-api.herokuapp.com/gql';
 function App() {
   const [problems, setProblems] = useState([]);
   const [operatorName, setOperatorName] = useState('');
+  const [selectedOperands, setSelectedOperands] = useState([]);
 
   const operator = operators.find(op => op.id === operatorName) || { html: <div></div> }
   
@@ -14,13 +15,13 @@ function App() {
   const query = `query getProblems($problemInput: ProblemInput!) { problems(problemInput: $problemInput) { problem } }`;
 
   const number = 10;
-  const randomIntWithRange = operands.find(op => op.value.name === "Random Integer with Range");
+  const int100to200 = operands.find(op => op.id === "int100to200");
 
   const problemInput = {
     number,
     operands: [
-      randomIntWithRange.value,
-      randomIntWithRange.value
+      int100to200.value,
+      int100to200.value
     ],
     operator: operator.value
   }
