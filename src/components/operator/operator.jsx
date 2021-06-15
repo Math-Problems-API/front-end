@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function OperatorContainer({ operands = [], operator }) {
+export default function OperatorContainer({ availableOperands = [], operator }) {
   return (
     <div>
       

@@ -1,28 +1,26 @@
 import { useState, useEffect } from 'react';
 
 import operators from './data/operators';
-import operands from './data/operands';
+import availableOperands from './data/operands';
 const mathProblemsURL = 'https://math-problems-api.herokuapp.com/gql';
 
 function App() {
   const [problems, setProblems] = useState([]);
   const [operatorName, setOperatorName] = useState('');
-  const [selectedOperands, setSelectedOperands] = useState([]);
+  const [operandNames, setOperandNames] = useState([]);
 
-  const operator = operators.find(op => op.id === operatorName) || { html: <div></div> }
+  const operator = operators.find(op => op.id === operatorName) || { component: () => <div></div> }
+
+  const operands = operandNames.map(name => availableOperands.find(o => o.id === name)?.value)
   
 
   const query = `query getProblems($problemInput: ProblemInput!) { problems(problemInput: $problemInput) { problem } }`;
 
   const number = 10;
-  const int100to200 = operands.find(op => op.id === "int100to200");
 
   const problemInput = {
     number,
-    operands: [
-      int100to200.value,
-      int100to200.value
-    ],
+    operands,
     operator: operator.value
   }
 
@@ -47,6 +45,8 @@ function App() {
       .then(setProblems)
   }
 
+  console.log(operands);
+
   return (
     <div className="App">
       <div>
@@ -65,7 +65,7 @@ function App() {
         </select>
       </div>
       {
-        operator.html
+        <operator.component availableOperands={availableOperands} setOperandNames={setOperandNames}/>
       }
       <button
         onClick={generateProblems}

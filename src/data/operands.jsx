@@ -31,10 +31,10 @@ const multiplesOfFive = {
     properties: [
       { value: [0, 100] }
     ],
+    constraints: [
+      "num => num % 5 === 0"
+    ],
   },
-  constraints: [
-    "num => num % 5 === 0"
-  ],
   html: <div>
 
   </div>
