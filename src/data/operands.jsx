@@ -16,7 +16,7 @@ const int0to100 = {
   value: {
     name: "Random Integer with Range",
     properties: [
-      { value: [100, 200] }
+      { value: [0, 100] }
     ],
   },
   html: <div>
