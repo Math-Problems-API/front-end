@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import getProblemsFromInput from './utils/getProblemsFromInput';
 
@@ -11,8 +11,9 @@ import OperatorBox from './components/OperatorBox/OperatorBox';
 
 function App() {
   const [problems, setProblems] = useState([]);
-  const [operatorId, setOperatorId] = useState('');
-  const [operandIds, setOperandIds] = useState([]);
+  const [numberOfProblems, setNumberOfProblems] = useState(10);
+  const [operatorId, setOperatorId] = useState('addition');
+  const [operandIds, setOperandIds] = useState(['int0to100', 'int0to100']);
 
   const operator = operators.find(o => o.id === operatorId) || { component: () => <div>Select an Operator</div>};
   const operands = operandIds.map(opId => availableOperands.find(o => o.id === opId));
@@ -20,15 +21,24 @@ function App() {
   const problemInput = {
     operands: operands.map(o => o.value),
     operator: operator.value,
-    number: 10
-  }
+    number: numberOfProblems
+  };
 
   const generateProblems = () => {
     getProblemsFromInput(problemInput).then(setProblems)
   };
+
+  const updateNumberOfProblems = ({ target }) => {
+    setNumberOfProblems(Number(target.value));
+  };
   
   return (
     <div className="App">
+      <input 
+        type="number" 
+        onChange={updateNumberOfProblems}
+        value={numberOfProblems}
+      />
       <SelectOperator operatorState={[operatorId, setOperatorId]}/>
       <OperatorBox>
         <operator.component 
