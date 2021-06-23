@@ -1,17 +1,8 @@
 import React from 'react';
+import SelectorOperand from '../components/SelectorOperand/SelectorOperand';
 
 const binaryOperator = symbol => {
   return ({ availableOperands, operandsState, operandsHTML }) => {
-    const [operandIds, setOperandIds] = operandsState;
-
-    const updateOperand = ({ target }) => {
-      setOperandIds(current => {
-        const copy = [...current];
-        copy[Number(target.id)] = target.value;
-        return copy;
-      })
-    }
-    
     return (
       <div
         id="addition"
@@ -21,40 +12,22 @@ const binaryOperator = symbol => {
         }}
       >
         <div>
-          <select 
-            id="0"
-            onChange={updateOperand}
-            value={operandIds[0]}
-          >
-            {
-              availableOperands.map((o, i) => <option
-                key={i}
-                value={o.id}
-              >
-                {o.description}
-              </option>)
-            }
-          </select>
+          <SelectorOperand 
+            id={0}
+            availableOperands={availableOperands}
+            operandsState={operandsState}
+          />
           <div>
             {operandsHTML[0]}
           </div>
         </div>
         <div>{symbol}</div>
         <div>
-          <select 
-            id="1"
-            onChange={updateOperand}
-            value={operandIds[1]}
-          >
-            {
-              availableOperands.map((o, i) => <option
-                key={i}
-                value={o.id}
-              >
-                {o.description}
-              </option>)
-            }
-          </select>
+          <SelectorOperand 
+            id={1}
+            availableOperands={availableOperands}
+            operandsState={operandsState}
+          />
           <div>
             {operandsHTML[1]}
           </div>
