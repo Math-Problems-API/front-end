@@ -31,7 +31,7 @@ const binaryOperator = symbol => {
                 key={i}
                 value={o.id}
               >
-                {o.id}
+                {o.description}
               </option>)
             }
           </select>
@@ -51,7 +51,7 @@ const binaryOperator = symbol => {
                 key={i}
                 value={o.id}
               >
-                {o.id}
+                {o.description}
               </option>)
             }
           </select>
