@@ -1,5 +1,5 @@
 import React from 'react';
-import SelectorOperand from '../components/SelectorOperand/SelectorOperand';
+import SelectOperand from '../components/SelectOperand/SelectOperand';
 
 const binaryOperator = symbol => {
   return ({ availableOperands, operandsState, operandsHTML }) => {
@@ -12,7 +12,7 @@ const binaryOperator = symbol => {
         }}
       >
         <div>
-          <SelectorOperand 
+          <SelectOperand 
             id={0}
             availableOperands={availableOperands}
             operandsState={operandsState}
@@ -23,7 +23,7 @@ const binaryOperator = symbol => {
         </div>
         <div>{symbol}</div>
         <div>
-          <SelectorOperand 
+          <SelectOperand 
             id={1}
             availableOperands={availableOperands}
             operandsState={operandsState}
