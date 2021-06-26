@@ -1,8 +1,8 @@
-import React from 'react';
+ import React from 'react';
 import SelectOperand from '../components/SelectOperand/SelectOperand';
 
 const binaryOperator = symbol => {
-  return ({ availableOperands, operandsState, operandsHTML }) => {
+  return ({ operands }) => {
     return (
       <div
         id="addition"
@@ -12,24 +12,14 @@ const binaryOperator = symbol => {
         }}
       >
         <div>
-          <SelectOperand 
-            id={0}
-            availableOperands={availableOperands}
-            operandsState={operandsState}
-          />
           <div>
-            {operandsHTML[0]}
+            {operands[0].html}
           </div>
         </div>
         <div>{symbol}</div>
         <div>
-          <SelectOperand 
-            id={1}
-            availableOperands={availableOperands}
-            operandsState={operandsState}
-          />
           <div>
-            {operandsHTML[1]}
+            {operands[1].html}
           </div>
         </div> 
       </div>
