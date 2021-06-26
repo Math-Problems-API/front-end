@@ -9,7 +9,7 @@ import ProblemList from './components/ProblemList/ProblemList';
 import SelectOperator from './components/SelectOperator/SelectOperator';
 import OperatorBox from './components/OperatorBox/OperatorBox';
 import getNumberOfOperands from './utils/getNumberOfOperands';
-import SelectOperand from './components/SelectOperand/SelectOperand';
+import SelectOperands from './components/SelectOperands/SelectOperands';
 
 function App() {
   const [problems, setProblems] = useState([]);
@@ -44,16 +44,11 @@ function App() {
         value={numberOfProblems}
       />
       <SelectOperator operatorState={[operatorId, setOperatorId]}/>
-      {
-        [...Array(numberOfOperands)].map((_, i) => {
-          return <SelectOperand 
-            id={i}
-            key={i}
-            operandsState={[operandIds, setOperandIds]}
-            availableOperands={availableOperands}
-          />
-        })
-      }
+      <SelectOperands 
+        available={availableOperands}
+        number={numberOfOperands}
+        operandsState={[operandIds, setOperandIds]}
+      />
       <OperatorBox>
         <operator.component 
           operands={operands}
