@@ -8,6 +8,7 @@ import availableOperands from './data/operands';
 import ProblemList from './components/ProblemList/ProblemList';
 import SelectOperator from './components/SelectOperator/SelectOperator';
 import OperatorBox from './components/OperatorBox/OperatorBox';
+import getNumberOfOperands from './utils/getNumberOfOperands';
 
 function App() {
   const [problems, setProblems] = useState([]);
@@ -16,6 +17,8 @@ function App() {
   const [operandIds, setOperandIds] = useState(['int0to100', 'int0to100']);
 
   const operator = operators.find(o => o.id === operatorId) || { component: () => <div>Select an Operator</div>};
+  const numberOfOperands = getNumberOfOperands(operator.value);
+
   const operands = operandIds.map(opId => availableOperands.find(o => o.id === opId));
 
   const problemInput = {
