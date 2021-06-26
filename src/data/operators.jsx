@@ -1,5 +1,4 @@
- import React from 'react';
-import SelectOperand from '../components/SelectOperand/SelectOperand';
+import React from 'react';
 
 const binaryOperator = symbol => {
   return ({ operands }) => {
@@ -11,17 +10,9 @@ const binaryOperator = symbol => {
           "flexDirection": "row"
         }}
       >
-        <div>
-          <div>
-            {operands[0].html}
-          </div>
-        </div>
+        <div>{operands[0].html}</div>
         <div>{symbol}</div>
-        <div>
-          <div>
-            {operands[1].html}
-          </div>
-        </div> 
+        <div>{operands[1].html}</div>
       </div>
     )
   }
