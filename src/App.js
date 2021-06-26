@@ -48,6 +48,7 @@ function App() {
         [...Array(numberOfOperands)].map((_, i) => {
           return <SelectOperand 
             id={i}
+            key={i}
             operandsState={[operandIds, setOperandIds]}
             availableOperands={availableOperands}
           />
