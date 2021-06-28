@@ -9,6 +9,7 @@ import ProblemList from './components/ProblemList/ProblemList';
 import SelectOperator from './components/SelectOperator/SelectOperator';
 import OperatorBox from './components/OperatorBox/OperatorBox';
 import getNumberOfOperands from './utils/getNumberOfOperands';
+import SelectOperands from './components/SelectOperands/SelectOperands';
 
 function App() {
   const [problems, setProblems] = useState([]);
@@ -43,11 +44,14 @@ function App() {
         value={numberOfProblems}
       />
       <SelectOperator operatorState={[operatorId, setOperatorId]}/>
+      <SelectOperands 
+        available={availableOperands}
+        number={numberOfOperands}
+        operandsState={[operandIds, setOperandIds]}
+      />
       <OperatorBox>
         <operator.component 
-          availableOperands={availableOperands}
-          operandsState={[operandIds, setOperandIds]}
-          operandsHTML={operands.map(o => o.html)}
+          operands={operands}
         />
       </OperatorBox>
       <ProblemList {...{ problems }}/>
