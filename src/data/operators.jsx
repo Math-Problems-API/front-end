@@ -1,5 +1,13 @@
 import React from 'react';
 
+const factorIntoPrimes = ({ operands }) => {
+  return (
+    <div>
+      Factor {operands[0].html} into prime factors. 
+    </div>
+  )
+}
+
 const binaryOperator = symbol => {
   return ({ operands }) => {
     return (
