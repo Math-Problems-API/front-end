@@ -36,10 +36,30 @@ const multiplication = {
   component: binaryOperator('*')
 }
 
+const factorIntoPrimesHTML = ({ operands }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row"
+      }}
+    >
+      Factor {operands[0].html} into prime factors.
+    </div>
+  )
+}
+
+const factorIntoPrimes = {
+  id: "factor into primes",
+  value: "num => Factor num into prime factors",
+  component: factorIntoPrimesHTML
+}
+
 const ops = [
   addition,
   subtraction,
-  multiplication
+  multiplication,
+  factorIntoPrimes
 ];
 
 export default ops;
