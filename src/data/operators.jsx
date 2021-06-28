@@ -38,8 +38,13 @@ const multiplication = {
 
 const factorIntoPrimesHTML = ({ operands }) => {
   return (
-    <div>
-      Factor {operands[0].html} into prime factors. 
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row"
+      }}
+    >
+      Factor {operands[0].html} into prime factors.
     </div>
   )
 }
