@@ -1,13 +1,5 @@
 import React from 'react';
 
-const factorIntoPrimes = ({ operands }) => {
-  return (
-    <div>
-      Factor {operands[0].html} into prime factors. 
-    </div>
-  )
-}
-
 const binaryOperator = symbol => {
   return ({ operands }) => {
     return (
@@ -44,10 +36,25 @@ const multiplication = {
   component: binaryOperator('*')
 }
 
+const factorIntoPrimesHTML = ({ operands }) => {
+  return (
+    <div>
+      Factor {operands[0].html} into prime factors. 
+    </div>
+  )
+}
+
+const factorIntoPrimes = {
+  id: "factor into primes",
+  value: "num => Factor num into prime factors",
+  component: factorIntoPrimesHTML
+}
+
 const ops = [
   addition,
   subtraction,
-  multiplication
+  multiplication,
+  factorIntoPrimes
 ];
 
 export default ops;
