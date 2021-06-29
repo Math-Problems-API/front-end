@@ -2,6 +2,9 @@ import React from 'react';
 
 const binaryOperator = symbol => {
   return ({ operands }) => {
+    const LeftOperand = operands[0].html;
+    const RightOperand = operands[1].html;
+
     return (
       <div
         id="addition"
@@ -10,9 +13,9 @@ const binaryOperator = symbol => {
           "flexDirection": "row"
         }}
       >
-        <div>{operands[0].html}</div>
+        <div><LeftOperand /></div>
         <div>{symbol}</div>
-        <div>{operands[1].html}</div>
+        <div><RightOperand /></div>
       </div>
     )
   }

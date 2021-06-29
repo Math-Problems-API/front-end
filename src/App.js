@@ -15,7 +15,10 @@ function App() {
   const [problems, setProblems] = useState([]);
   const [numberOfProblems, setNumberOfProblems] = useState(10);
   const [operatorId, setOperatorId] = useState('addition');
-  const [operandIds, setOperandIds] = useState(['int0to100', 'int0to100']);
+  const [operandIds, setOperandIds] = useState([
+    { id: 'randomIntegerWithRange' }, 
+    { id: 'randomIntegerWithRange' }
+  ]);
 
   const operator = operators.find(o => o.id === operatorId) || { component: () => <div>Select an Operator</div>};
   const numberOfOperands = getNumberOfOperands(operator.value);
