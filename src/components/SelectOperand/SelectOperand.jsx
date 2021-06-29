@@ -1,12 +1,14 @@
 import React from 'react';
+import availableOperands from '../../data/operands';
 
-export default function SelectOperand({ id, availableOperands, operandsState }) {
-  const [operandIds, setOperandIds] = operandsState;
+export default function SelectOperand({ id, operandsState }) {
+  const [operands, setOperands] = operandsState;
 
   const updateOperand = ({ target }) => {
-    setOperandIds(current => {
+    setOperands(current => {
       const copy = [...current];
-      copy[Number(target.id)] = target.value;
+      const operand = availableOperands.find(o => o.id === target.value)
+      copy[Number(target.id)] = operand;
       return copy;
     })
   }
@@ -16,7 +18,7 @@ export default function SelectOperand({ id, availableOperands, operandsState }) 
       <select 
         id={id}
         onChange={updateOperand}
-        value={operandIds[id]}
+        value={operands[id]}
       >
         {
           availableOperands.map((o, i) => <option

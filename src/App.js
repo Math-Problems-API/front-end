@@ -1,29 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import getProblemsFromInput from './utils/getProblemsFromInput';
 
-import operators from './data/operators';
+import availableOperators from './data/operators';
 import availableOperands from './data/operands';
 
 import ProblemList from './components/ProblemList/ProblemList';
 import SelectOperator from './components/SelectOperator/SelectOperator';
 import OperatorBox from './components/OperatorBox/OperatorBox';
-import getNumberOfOperands from './utils/getNumberOfOperands';
 import SelectOperands from './components/SelectOperands/SelectOperands';
 
 function App() {
   const [problems, setProblems] = useState([]);
   const [numberOfProblems, setNumberOfProblems] = useState(10);
-  const [operatorId, setOperatorId] = useState('addition');
-  const [operands, setOperands] = useState([
-    { id: 'randomIntegerWithRange' }, 
-    { id: 'randomIntegerWithRange' }
-  ]);
 
-  const operator = operators.find(o => o.id === operatorId) || { component: () => <div>Select an Operator</div>};
-  const numberOfOperands = getNumberOfOperands(operator.value);
+  const [operator, setOperator] = useState(availableOperators[0]);
 
-  const selectedOperands = operandIds.map(opId => availableOperands.find(o => o.id === opId));
+  const [numberOfOperands, setNumberOfOperands] = useState(2);
+  const [operands, setOperands] = useState([...Array(numberOfOperands)].map(() => availableOperands[0]));
+
+  console.log(operands);
+
+  useEffect(() => {
+    setOperands([...Array(numberOfOperands)].map(() => availableOperands[0]))
+  }, [numberOfOperands])
 
   const problemInput = {
     operands: operands.map(o => o.value),
@@ -46,15 +46,18 @@ function App() {
         onChange={updateNumberOfProblems}
         value={numberOfProblems}
       />
-      <SelectOperator operatorState={[operatorId, setOperatorId]}/>
+      <SelectOperator 
+        operatorState={[operator, setOperator]}
+        setNumberOfOperands={setNumberOfOperands}
+      />
       <SelectOperands 
         available={availableOperands}
         number={numberOfOperands}
-        operandsState={[operandIds, setOperandIds]}
+        operandsState={[operands, setOperands]}
       />
       <OperatorBox>
         <operator.component 
-          operands={operands}
+          operandsState={[operands, setOperands]}
         />
       </OperatorBox>
       <ProblemList {...{ problems }}/>

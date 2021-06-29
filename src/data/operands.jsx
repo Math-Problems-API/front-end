@@ -1,28 +1,3 @@
-const randomIntComponent = ({ operandsState }) => {
-  const [operands, setOperands] = operandsState;
-
-  return (
-    <div>
-      &#x2124;
-      <select>
-
-      </select>
-    </div>
-  )
-}
-
-const randomIntegerWithRange = {
-  id: "randomIntegerWithRange",
-  description: "Random Integer",
-  value: {
-    name: "Random Integer with Range",
-    properties: [
-      { value: [100, 200] }
-    ],
-  },
-  html: randomIntComponent
-}
-
 const propertyPresets = [
   { 
     id: "0to100", 
@@ -64,6 +39,46 @@ const constraintPresets = [
     ]
   }
 ]
+
+const randomIntComponent = ({ id, operandsState }) => {
+  const [operands, setOperands] = operandsState;
+
+  const updateProperty = ({ target }) => {
+    const property = propertyPresets.find(p => p.id === target.value);
+
+    setOperands(operands => {
+      const operandIndex = Number(id);
+      const copy = [...operands];
+      copy[operandIndex].value.property = property;
+      return copy;
+    })
+  }
+
+  return (
+    <div>
+      &#x2124;
+      <select onChange={updateProperty}>
+        {
+          propertyPresets.map(p => {
+            return <option key={p.id} value={p.id}>{p.description}</option>
+          })
+        }
+      </select>
+    </div>
+  )
+}
+
+const randomIntegerWithRange = {
+  id: "randomIntegerWithRange",
+  description: "Random Integer",
+  value: {
+    name: "Random Integer with Range",
+    properties: [
+      { id: "range", description: "", value: [100, 200] }
+    ],
+  },
+  html: randomIntComponent
+}
 
 const operands = [
   randomIntegerWithRange

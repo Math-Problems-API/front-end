@@ -1,21 +1,24 @@
 import React from 'react';
-import operators from '../../data/operators';
+import availableOperators from '../../data/operators';
+import getNumberOfOperands from '../../utils/getNumberOfOperands';
 
-export default function SelectOperator({ operatorState }) {
-  const [operatorId, setOperatorId] = operatorState;
+export default function SelectOperator({ operatorState, setNumberOfOperands }) {
+  const [operator, setOperator] = operatorState;
 
   const updateOperatorId = ({ target }) => {
-    setOperatorId(target.value)
+    const operator = availableOperators.find(o => o.id === target.value)
+    setNumberOfOperands(getNumberOfOperands(operator.value))
+    setOperator(operator);
   }
 
   return (
     <div>
       <select 
-        value={operatorId}
+        value={operator.id}
         onChange={updateOperatorId}
       >
         {
-          operators.map(op => <option
+          availableOperators.map(op => <option
             key={op.id}
             value={op.id}
           >
