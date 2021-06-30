@@ -8,7 +8,7 @@ export default function SelectOperands({ available, number, operandsState }) {
         id={i}
         key={i}
         operandsState={operandsState}
-        availableOperands={available}
+        availableOperands={available.map(o => o())}
       />
     })
   )

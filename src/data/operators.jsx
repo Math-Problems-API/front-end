@@ -1,7 +1,11 @@
 import React from 'react';
 
 const binaryOperator = symbol => {
-  return ({ operands }) => {
+  return ({ operandsState }) => {
+    const operands = operandsState[0];
+    const LeftOperand = operands[0].html;
+    const RightOperand = operands[1].html;
+
     return (
       <div
         id="addition"
@@ -10,9 +14,13 @@ const binaryOperator = symbol => {
           "flexDirection": "row"
         }}
       >
-        <div>{operands[0].html}</div>
+        <div>
+          <LeftOperand operandIndex={0} operandsState={operandsState}/>
+        </div>
         <div>{symbol}</div>
-        <div>{operands[1].html}</div>
+        <div>
+          <RightOperand operandIndex={1} operandsState={operandsState}/>
+        </div>
       </div>
     )
   }
@@ -36,7 +44,10 @@ const multiplication = {
   component: binaryOperator('*')
 }
 
-const factorIntoPrimesHTML = ({ operands }) => {
+const factorIntoPrimesHTML = ({ operandsState }) => {
+  const operands = operandsState[0];
+  const Operand = operands[0].html;
+
   return (
     <div
       style={{
@@ -44,7 +55,7 @@ const factorIntoPrimesHTML = ({ operands }) => {
         flexDirection: "row"
       }}
     >
-      Factor {operands[0].html} into prime factors.
+      Factor <Operand operandIndex={0} operandsState={operandsState}/> into prime factors.
     </div>
   )
 }
