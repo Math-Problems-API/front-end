@@ -21,8 +21,6 @@ function App() {
 
   const [operands, setOperands] = useState([...Array(numberOfOperands)].map(() => ({ ...availableOperands[0]() })));
 
-  console.log('OPERANDS', operands);
-
   useEffect(() => {
     setOperands([...Array(numberOfOperands)].map(() => ({ ...availableOperands[0]() })))
   }, [numberOfOperands])
