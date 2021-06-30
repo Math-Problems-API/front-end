@@ -1,16 +1,21 @@
 const propertyPresets = [
   { 
-    id: "0to100", 
+    id: "0to100",
+    propertyId: "range",
     description: "More than 0, less than 100, inclusive", 
     value: [0, 100]
   },
   { 
-    id: "100to200", 
+    id: "100to200",
+    propertyId: "range",
     description: "More than 100, less than 200, inclusive", 
     value: [100, 200]
   }
 ]
 
+// We're doing whole constraint arrays right now, but
+// presumably we could do a check box system that maybe
+// even checks for conflicts
 const constraintPresets = [
   {
     id: "noConstraints",
@@ -40,48 +45,97 @@ const constraintPresets = [
   }
 ]
 
-const randomIntComponent = ({ id, operandsState }) => {
+const randomIntComponent = ({ operandIndex, operandsState }) => {
   const [operands, setOperands] = operandsState;
 
-  const updateProperty = ({ target }) => {
-    const property = propertyPresets.find(p => p.id === target.value);
-
-    setOperands(operands => {
-      const operandIndex = Number(id);
-      const copy = [...operands];
-      copy[operandIndex].value.property = property;
-      return copy;
-    })
+  const updateProperty = propertyId => ({ target }) => {
+    const updatedProperty = makeNewProp(propertyPresets.find(p => p.id === target.value))
+    setOperands(updateOperandProperty({ propertyId, updatedProperty, operandIndex }));
   }
+
+  const availablePropertyIds = operands[operandIndex].value.properties.map(p => p.id);
 
   return (
     <div>
       &#x2124;
-      <select onChange={updateProperty}>
-        {
-          propertyPresets.map(p => {
-            return <option key={p.id} value={p.id}>{p.description}</option>
+      {
+        availablePropertyIds.map(id => {
+          const selectedPropertyValue = operands[operandIndex]
+            .value
+            .properties
+            .find(p => p.id === id)
+            .value;
+
+          const selectedProperty = propertyPresets.find(p => {
+            return arraysContainEqualElements(p.value, selectedPropertyValue);
+          });
+
+          return <select id={id} key={id} onChange={updateProperty(id)} value={selectedProperty.id}>
+            {
+              propertyPresets
+                .filter(p => p.propertyId === id)
+                .map(p => (
+                  <option 
+                    id={p.id} 
+                    key={p.description} 
+                    value={p.id}
+                  >
+                    {p.description}
+                  </option>
+                ))
+            }
+          </select>
           })
-        }
-      </select>
+      }
     </div>
   )
 }
 
-const randomIntegerWithRange = {
-  id: "randomIntegerWithRange",
-  description: "Random Integer",
-  value: {
-    name: "Random Integer with Range",
-    properties: [
-      { id: "range", description: "", value: [100, 200] }
-    ],
-  },
-  html: randomIntComponent
+function getRandomIntegerWithRange() {
+  return {
+    id: "randomIntegerWithRange",
+    description: "Random Integer",
+    value: {
+      name: "Random Integer with Range",
+      properties: [{
+        id: "range", 
+        description: "", 
+        value: [100, 200] 
+      }],
+    },
+    html: randomIntComponent
+  }
 }
 
 const operands = [
-  randomIntegerWithRange
+  getRandomIntegerWithRange
 ]
+
+function updateOperandProperty({ propertyId, updatedProperty, operandIndex }) {
+  return function(operands) {
+    const copy = [...operands];
+
+    const propertyIndex = copy[operandIndex]
+      .value
+      .properties
+      .findIndex(p => p.id === propertyId);
+
+    copy[operandIndex].value.properties[propertyIndex] = { ...updatedProperty };
+
+    return copy;
+  }
+}
+
+function makeNewProp({ propertyId, ...rest }) {
+  return { ...rest, id: propertyId, }
+}
+
+function arraysContainEqualElements(one, two) {
+  if(one.length !== two.length) return false;
+  return one.reduce((result, item, index) => {
+    if(item !== two[index]) result = false;
+    return result;
+  }, true)
+}
 
 export default operands;

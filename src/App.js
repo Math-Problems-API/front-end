@@ -9,6 +9,7 @@ import ProblemList from './components/ProblemList/ProblemList';
 import SelectOperator from './components/SelectOperator/SelectOperator';
 import OperatorBox from './components/OperatorBox/OperatorBox';
 import SelectOperands from './components/SelectOperands/SelectOperands';
+import getNumberOfOperands from './utils/getNumberOfOperands';
 
 function App() {
   const [problems, setProblems] = useState([]);
@@ -16,17 +17,20 @@ function App() {
 
   const [operator, setOperator] = useState(availableOperators[0]);
 
-  const [numberOfOperands, setNumberOfOperands] = useState(2);
-  const [operands, setOperands] = useState([...Array(numberOfOperands)].map(() => availableOperands[0]));
+  const numberOfOperands = getNumberOfOperands(operator.value);
 
-  console.log(operands);
+  const [operands, setOperands] = useState([...Array(numberOfOperands)].map(() => ({ ...availableOperands[0]() })));
 
   useEffect(() => {
-    setOperands([...Array(numberOfOperands)].map(() => availableOperands[0]))
+    setOperands([...Array(numberOfOperands)].map(() => ({ ...availableOperands[0]() })))
   }, [numberOfOperands])
 
   const problemInput = {
-    operands: operands.map(o => o.value),
+    operands: operands.map(o => {
+      const copy = { ...o.value };
+      const fixedProperties = copy.properties.map(({ value, ...rest }) => ({ value }));
+      return { ...copy, properties: fixedProperties };
+    }),
     operator: operator.value,
     number: numberOfProblems
   };
@@ -48,7 +52,6 @@ function App() {
       />
       <SelectOperator 
         operatorState={[operator, setOperator]}
-        setNumberOfOperands={setNumberOfOperands}
       />
       <SelectOperands 
         available={availableOperands}

@@ -1,7 +1,6 @@
 import React from 'react';
-import availableOperands from '../../data/operands';
 
-export default function SelectOperand({ id, operandsState }) {
+export default function SelectOperand({ id, operandsState, availableOperands }) {
   const [operands, setOperands] = operandsState;
 
   const updateOperand = ({ target }) => {

@@ -15,11 +15,11 @@ const binaryOperator = symbol => {
         }}
       >
         <div>
-          <LeftOperand id="0" operandsState={operandsState}/>
+          <LeftOperand operandIndex={0} operandsState={operandsState}/>
         </div>
         <div>{symbol}</div>
         <div>
-          <RightOperand id="1" operandsState={operandsState}/>
+          <RightOperand operandIndex={1} operandsState={operandsState}/>
         </div>
       </div>
     )

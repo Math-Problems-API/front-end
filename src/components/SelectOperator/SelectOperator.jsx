@@ -1,13 +1,11 @@
 import React from 'react';
 import availableOperators from '../../data/operators';
-import getNumberOfOperands from '../../utils/getNumberOfOperands';
 
 export default function SelectOperator({ operatorState, setNumberOfOperands }) {
   const [operator, setOperator] = operatorState;
 
   const updateOperatorId = ({ target }) => {
     const operator = availableOperators.find(o => o.id === target.value)
-    setNumberOfOperands(getNumberOfOperands(operator.value))
     setOperator(operator);
   }
 
