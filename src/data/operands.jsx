@@ -53,6 +53,21 @@ const randomIntComponent = ({ operandIndex, operandsState }) => {
     setOperands(updateOperandProperty({ propertyId, updatedProperty, operandIndex }));
   }
 
+  const updateConstraints = ({ target }) => {
+    const selectedConstraints = constraintPresets.find(c => c.id === target.value);
+
+    setOperands(operands => {
+      const copy = [...operands];
+      copy[operandIndex].value.constraints = selectedConstraints.value;
+      return copy;
+    })
+  }
+
+  const selectedConstraints = constraintPresets.find(c => {
+    const current = operands[operandIndex].value.constraints || [];
+    return arraysContainEqualElements(c.value, current);
+  })
+
   const availablePropertyIds = operands[operandIndex].value.properties.map(p => p.id);
 
   return (
@@ -87,6 +102,14 @@ const randomIntComponent = ({ operandIndex, operandsState }) => {
           </select>
           })
       }
+      <select id="constraints" onChange={updateConstraints} value={selectedConstraints.id}>
+        {
+          constraintPresets.map(c => <option 
+            key={c.id} 
+            value={c.id}
+          >{c.description}</option>)
+        }
+      </select>
     </div>
   )
 }
