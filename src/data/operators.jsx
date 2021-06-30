@@ -44,7 +44,10 @@ const multiplication = {
   component: binaryOperator('*')
 }
 
-const factorIntoPrimesHTML = ({ operands }) => {
+const factorIntoPrimesHTML = ({ operandsState }) => {
+  const operands = operandsState[0];
+  const Operand = operands[0].html;
+
   return (
     <div
       style={{
@@ -52,7 +55,7 @@ const factorIntoPrimesHTML = ({ operands }) => {
         flexDirection: "row"
       }}
     >
-      Factor {operands[0].html} into prime factors.
+      Factor <Operand operandIndex={0} operandsState={operandsState}/> into prime factors.
     </div>
   )
 }
