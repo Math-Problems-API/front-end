@@ -1,7 +1,6 @@
 import React from 'react';
-import availableOperators from '../../data/operators';
 
-export default function SelectOperator({ operatorState, setNumberOfOperands }) {
+export default function SelectOperator({ availableOperators, operatorState, setNumberOfOperands }) {
   const [operator, setOperator] = operatorState;
 
   const updateOperatorId = ({ target }) => {

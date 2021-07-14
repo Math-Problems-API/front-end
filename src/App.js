@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import getProblemsFromInput from './utils/getProblemsFromInput';
 
-import availableOperators from './data/operators';
+import availableHardCodedOperators from './data/operators';
 import availableOperands from './data/operands';
 
 import ProblemList from './components/ProblemList/ProblemList';
@@ -12,6 +12,35 @@ import SelectOperands from './components/SelectOperands/SelectOperands';
 import getNumberOfOperands from './utils/getNumberOfOperands';
 
 function App() {
+  const [availableOperators, setAvailableOperators] = useState(availableHardCodedOperators)
+
+  useEffect(() => {
+    const query = `{
+      availableOperators {
+        name
+        value
+        view
+      }
+    }`
+
+    fetch('http://localhost:7890/gql', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ query })
+    })
+      .then(res => res.json())
+      .then(json => {
+        return json.data.availableOperators.map(({ name, ...rest }) => {
+          return { id: name, ...rest }
+        })
+      })
+      .then(setAvailableOperators)
+  }, [])
+
+
   const [problems, setProblems] = useState([]);
   const [numberOfProblems, setNumberOfProblems] = useState(10);
 
@@ -51,6 +80,7 @@ function App() {
         value={numberOfProblems}
       />
       <SelectOperator 
+        availableOperators={availableOperators}
         operatorState={[operator, setOperator]}
       />
       <SelectOperands 
@@ -59,9 +89,9 @@ function App() {
         operandsState={[operands, setOperands]}
       />
       <OperatorBox>
-        <operator.component 
-          operandsState={[operands, setOperands]}
-        />
+        {
+          operator.view ? operator.view : <div>{operator.value}</div>
+        }
       </OperatorBox>
       <ProblemList {...{ problems }}/>
       <button onClick={generateProblems}>Generate Problems!</button>
