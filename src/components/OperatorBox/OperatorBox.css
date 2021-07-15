@@ -1,4 +1,7 @@
 .operator-box {
+  display: flex;
+  flex-direction: row;
+
   border: 1px black solid;
 
   width: 300px;
