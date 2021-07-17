@@ -1,7 +1,7 @@
 import ReactHTMLParser from 'react-html-parser';
 
-export const generateOperatorDisplayFromView = op => {
-  const { view } = op;
+export const generateOperatorDisplayFromView = operator => {
+  const { view } = operator;
 
   return ReactHTMLParser(view, {
     transform: node => {
