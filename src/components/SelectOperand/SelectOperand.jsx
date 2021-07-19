@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import hardCodedOperands from '../../data/operands';
 
-export default function SelectOperand({ id, operandsState, availableOperands }) {
+export default function SelectOperand({ id, operandsState }) {
   const [operands, setOperands] = operandsState;
+
+  const [availableOperands, setAvailableOperands] = useState([])
+
+  // Make fetch to backend later
+  const getAvailableOperands = () => setAvailableOperands(hardCodedOperands.map(i => i()));
+
+  useEffect(getAvailableOperands, [])
 
   const updateOperand = ({ target }) => {
     setOperands(current => {
@@ -17,8 +25,11 @@ export default function SelectOperand({ id, operandsState, availableOperands }) 
       <select 
         id={id}
         onChange={updateOperand}
-        value={operands[id]}
+        value={operands[id] || ''}
       >
+        <option value={''}>
+          Select an operand
+        </option>
         {
           availableOperands.map((o, i) => <option
             key={i}

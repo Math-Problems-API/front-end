@@ -12,6 +12,10 @@ function App() {
 
   const [operator, setOperator] = useState({ id: '' });
 
+  const operandsState = useState([]);
+
+  console.log(operandsState[0]);
+
   // const problemInput = {
   //   operands: operands.map(o => {
   //     const copy = { ...o.value };
@@ -43,7 +47,10 @@ function App() {
       {
         operator.id === ''
         ? <div>Select an operator</div>
-        : <OperatorBox operator={operator}/>
+        : <OperatorBox 
+            operator={operator} 
+            operandsState={operandsState}
+          />
       }
       <ProblemList {...{ problems }}/>
       {/* <button onClick={generateProblems}>Generate Problems!</button> */}

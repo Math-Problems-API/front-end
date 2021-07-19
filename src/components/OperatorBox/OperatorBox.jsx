@@ -8,18 +8,18 @@ import {
   generateOperatorDisplayFromView 
 } from '../../utils/generateOperatorDisplay';
 
-export default function OperatorBox({ operator }) {
+export default function OperatorBox({ operator, operandsState }) {
   const [display, setDisplay] = useState(<div>Loading</div>);
 
   useEffect(() => {
     const operatorHasView = operator.view;
 
     if(operatorHasView) {
-      setDisplay(generateOperatorDisplayFromView(operator))
+      setDisplay(generateOperatorDisplayFromView(operator, operandsState))
     } else {
-      setDisplay(generateOperatorDisplayFromValue(operator))
+      setDisplay(generateOperatorDisplayFromValue(operator, operandsState))
     }
-  }, [operator])
+  }, [operator, operandsState])
 
   return (
     <div className="operator-box">
