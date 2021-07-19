@@ -14,21 +14,19 @@ function App() {
 
   const operandsState = useState([]);
 
-  console.log(operandsState[0]);
+  const problemInput = {
+    operands: operandsState[0].map(o => {
+      const copy = { ...o.value };
+      const fixedProperties = copy.properties.map(({ value }) => ({ value }));
+      return { ...copy, properties: fixedProperties };
+    }),
+    operator: operator.value,
+    number: numberOfProblems
+  };
 
-  // const problemInput = {
-  //   operands: operands.map(o => {
-  //     const copy = { ...o.value };
-  //     const fixedProperties = copy.properties.map(({ value, ...rest }) => ({ value }));
-  //     return { ...copy, properties: fixedProperties };
-  //   }),
-  //   operator: operator.value,
-  //   number: numberOfProblems
-  // };
-
-  // const generateProblems = () => {
-  //   getProblemsFromInput(problemInput).then(setProblems)
-  // };
+  const generateProblems = () => {
+    getProblemsFromInput(problemInput).then(setProblems)
+  };
 
   const updateNumberOfProblems = ({ target }) => {
     setNumberOfProblems(Number(target.value));
@@ -52,8 +50,8 @@ function App() {
             operandsState={operandsState}
           />
       }
+      <button onClick={generateProblems}>Generate Problems!</button>
       <ProblemList {...{ problems }}/>
-      {/* <button onClick={generateProblems}>Generate Problems!</button> */}
     </div>
   );
 }
