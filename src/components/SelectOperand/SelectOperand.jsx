@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import hardCodedOperands from '../../data/operands';
+import NullOption from '../NullOption/NullOption';
 
 export default function SelectOperand({ id, operandsState }) {
   const [operands, setOperands] = operandsState;
@@ -29,13 +30,9 @@ export default function SelectOperand({ id, operandsState }) {
         onChange={updateOperand}
         value={operands[id]?.id ?? ''}
       >
-        {
-          operands[id]?.id === undefined
-          ? <option value={''}>
-            Select an operand
-          </option>
-          : ''
-        }
+        <NullOption nullSwitch={operands[id]?.id === undefined}>
+          Select an operand
+        </NullOption>
         {
           availableOperands.map((o, i) => <option
             key={i}
