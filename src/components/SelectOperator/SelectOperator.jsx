@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import NullOption from '../NullOption/NullOption';
 
 export default function SelectOperator({ operatorState }) {
   const [operator, setOperator] = operatorState;
@@ -41,14 +42,9 @@ export default function SelectOperator({ operatorState }) {
         value={operator.id}
         onChange={updateOperatorId}
       >
-        {
-          operator.id === ''
-          ? <option
-            key="null-option"
-            value=""
-          >Select an Operator</option>
-          : null
-        }
+        <NullOption nullSwitch={operator.id === ''}>
+          Select an Operator
+        </NullOption>
         {
           availableOperators.map(op => <option
             key={op.id}
