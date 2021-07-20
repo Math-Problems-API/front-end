@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function NumberOfProblems({ numberOfProblemsState }) {
-  const [numberOfProblems, setNumberOfProblems] = useState(10);
+  const [numberOfProblems, setNumberOfProblems] = numberOfProblemsState;
 
   const updateNumberOfProblems = ({ target }) => {
     setNumberOfProblems(Number(target.value));
