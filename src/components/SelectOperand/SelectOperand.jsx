@@ -29,9 +29,13 @@ export default function SelectOperand({ id, operandsState }) {
         onChange={updateOperand}
         value={operands[id]?.id ?? ''}
       >
-        <option value={''}>
-          Select an operand
-        </option>
+        {
+          operands[id]?.id === undefined
+          ? <option value={''}>
+            Select an operand
+          </option>
+          : ''
+        }
         {
           availableOperands.map((o, i) => <option
             key={i}

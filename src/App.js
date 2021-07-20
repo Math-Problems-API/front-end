@@ -5,10 +5,12 @@ import getProblemsFromInput from './utils/getProblemsFromInput';
 import ProblemList from './components/ProblemList/ProblemList';
 import SelectOperator from './components/SelectOperator/SelectOperator';
 import OperatorBox from './components/OperatorBox/OperatorBox';
+import Header from './components/Header/Header';
+import NumberOfProblems from './components/NumberOfProblems/NumberOfProblems';
 
 function App() {
   const [problems, setProblems] = useState([]);
-  const [numberOfProblems, setNumberOfProblems] = useState(10);
+  const numberOfProblemsState = useState(10);
 
   const [operator, setOperator] = useState({ id: '' });
 
@@ -21,37 +23,29 @@ function App() {
       return { ...copy, properties: fixedProperties };
     }),
     operator: operator.value,
-    number: numberOfProblems
+    number: numberOfProblemsState[0]
   };
 
   const generateProblems = () => {
     getProblemsFromInput(problemInput).then(setProblems)
   };
 
-  const updateNumberOfProblems = ({ target }) => {
-    setNumberOfProblems(Number(target.value));
-  };
   
   return (
     <div className="App">
-      <input 
-        type="number" 
-        onChange={updateNumberOfProblems}
-        value={numberOfProblems}
+      <Header />
+      <NumberOfProblems 
+        numberOfProblemsState={numberOfProblemsState}
       />
       <SelectOperator 
         operatorState={[operator, setOperator]}
       />
-      {
-        operator.id === ''
-        ? <div>Select an operator</div>
-        : <OperatorBox 
-            operator={operator} 
-            operandsState={operandsState}
-          />
-      }
+      <OperatorBox 
+        operator={operator} 
+        operandsState={operandsState}
+      />
       <button onClick={generateProblems}>Generate Problems!</button>
-      <ProblemList {...{ problems }}/>
+      <ProblemList problems={problems}/>
     </div>
   );
 }

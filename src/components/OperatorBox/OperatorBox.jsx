@@ -12,6 +12,8 @@ export default function OperatorBox({ operator, operandsState }) {
   const [display, setDisplay] = useState(<div>Loading</div>);
 
   useEffect(() => {
+    if(operator.id === '') return setDisplay(<div>Select an operator</div>);
+
     const operatorHasView = operator.view;
 
     if(operatorHasView) {

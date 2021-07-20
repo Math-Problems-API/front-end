@@ -11,7 +11,6 @@ export const generateOperatorDisplayFromView = (operator, operandsState) => {
           id={node.attribs.id} 
           operandsState={operandsState}
         />
-        // return <div>Operator {node.attribs.id}</div>
       }
     }
   })
@@ -47,6 +46,8 @@ export const generateOperatorDisplayFromValue = (operator, operandsState) => {
     .split(',')
     .map(operand => operand.trim())
 
+  // Wrap operands and other string elements in
+  // divs
   const wrappedOperands = operands
     .reduce((view, operand) => {
       return view.replace(operand, `__${operand}__`)
@@ -63,6 +64,7 @@ export const generateOperatorDisplayFromValue = (operator, operandsState) => {
     })
     .join('')
 
+  // Put everything in a container
   const operatorHTML = `<div class="operator">${wrappedOperands}</div>`
 
   return ReactHTMLParser(addStyleToHTML(operatorHTML, operatorValueStyle), {
@@ -72,7 +74,6 @@ export const generateOperatorDisplayFromValue = (operator, operandsState) => {
           id={node.attribs.id} 
           operandsState={operandsState}
         />
-        // return <div>Operator {node.attribs.id}</div>
       }
     }
   })

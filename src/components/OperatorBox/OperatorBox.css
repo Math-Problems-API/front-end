@@ -4,6 +4,9 @@
 
   border: 1px black solid;
 
+  min-height: 100px;
+  max-width: 900px;
+
   width: auto;
   height: auto;
 }
