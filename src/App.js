@@ -30,7 +30,6 @@ function App() {
     getProblemsFromInput(problemInput).then(setProblems)
   };
 
-  
   return (
     <div className="App">
       <Header />

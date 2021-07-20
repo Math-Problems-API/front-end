@@ -18,10 +18,10 @@ export const generateOperatorDisplayFromView = (operator, operandsState) => {
 
 const addStyleToHTML = (html, style) => {
   return `
-  <style>
-    ${style}
-  </style>
-  ${html}
+    <style>
+      ${style}
+    </style>
+    ${html}
   `
 }
 
@@ -67,6 +67,9 @@ export const generateOperatorDisplayFromValue = (operator, operandsState) => {
   // Put everything in a container
   const operatorHTML = `<div class="operator">${wrappedOperands}</div>`
 
+  // Parse html string to React and replace divs 
+  // that have 'operand' name attribute with 
+  // the Operand Selector
   return ReactHTMLParser(addStyleToHTML(operatorHTML, operatorValueStyle), {
     transform: node => {
       if (node.attribs?.name === 'operand') {
