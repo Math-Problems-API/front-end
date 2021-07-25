@@ -72,7 +72,6 @@ const randomIntComponent = ({ operandIndex, operandsState }) => {
 
   return (
     <div>
-      &#x2124;
       {
         availablePropertyIds.map(id => {
           const selectedPropertyValue = operands[operandIndex]
